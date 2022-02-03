@@ -12,11 +12,15 @@ export const saveDataDB = (cod:string, body : any) => {
          fs.mkdirSync(path);
 
       //se obtiene la información ya almacenada en el archivo
+      let data: any
       try {
-         var data: any = fs.readFileSync(path + fileName);
+         data = fs.readFileSync(path + fileName);
+         if(data.byteLength === 0)
+            data = '{}';
       } catch (e) {
          data = '{}';
       }
+      
       //se parsea la info como un json
       let JData = JSON.parse(data);
       //se anexa la nueva data y se vuelve a grabar en DB
